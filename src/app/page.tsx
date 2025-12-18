@@ -1,8 +1,13 @@
 import Header from "@/components/common/Header";
+import { ssrFetch } from "@/lib/ssrFetch";
+import { Category } from "@/types/category";
 
+export default async function Page() {
+  const { data: categories, error } = await ssrFetch<Category[]>("/categories");
 
-export default function Page() {
-  return <>
-  <Header /> 
-  </>
+  return (
+    <>
+      <Header categories={categories || []} />
+    </>
+  );
 }
