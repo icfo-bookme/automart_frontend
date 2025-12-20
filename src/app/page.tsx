@@ -1,4 +1,6 @@
+import BottomHeader from "@/components/common/BottomHeader";
 import Header from "@/components/common/Header";
+import Banner from "@/components/modules/home/Banner";
 import { ssrFetch } from "@/lib/ssrFetch";
 import { Category } from "@/types/category";
 
@@ -7,7 +9,10 @@ export default async function Page() {
 
   return (
     <>
-      <Header categories={categories || []} />
+      <div className="">
+        <Banner />
+      </div>
+
     </>
   );
 }

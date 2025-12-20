@@ -14,12 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { Heart, ShoppingCart, PhoneCall } from "lucide-react"
+import { Heart, ShoppingCart, PhoneCall, ChevronUp } from "lucide-react"
 import { NativeSelect, NativeSelectOption } from "../ui/native-select"
 import { Category } from "@/types/category"
 import Search from "./Search"
 
-export default function Header({ categories }: { categories: Category[] }) {
+export default function Header() {
   const router = useRouter()
 
   const [categoryId, setCategoryId] = useState<string>("")
@@ -52,8 +52,8 @@ export default function Header({ categories }: { categories: Category[] }) {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="default" size="sm">
-              LOGIN
+            <Button variant="secondary" size="sm">
+              LOGIN <ChevronUp />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-white">
