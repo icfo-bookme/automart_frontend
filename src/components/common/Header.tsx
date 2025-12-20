@@ -18,6 +18,7 @@ import { Heart, ShoppingCart, PhoneCall, ChevronUp } from "lucide-react"
 import { NativeSelect, NativeSelectOption } from "../ui/native-select"
 import { Category } from "@/types/category"
 import Search from "./Search"
+import Link from "next/link"
 
 export default function Header() {
   const router = useRouter()
@@ -66,6 +67,7 @@ export default function Header() {
       {/* Main Header */}
       <div className="grid grid-cols-5 gap-6 px-6 py-4">
         {/* Logo */}
+        <Link href={"/"}>
         <div className="flex col-span-1 items-center gap-2">
           <Image
             src="/logo/automax-lg.png"
@@ -74,7 +76,7 @@ export default function Header() {
             height={50}
             priority
           />
-        </div>
+        </div></Link>
         {/* Search Bar */}
         <div className="col-span-3">
           <Search />

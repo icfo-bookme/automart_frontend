@@ -5,9 +5,9 @@ import Header from "@/components/common/Header";
 import BottomHeader from "@/components/common/BottomHeader";
 
 const rubik = Rubik({
-  subsets: ['latin'], 
-  weight: ["300","400","500","600","700","800","900"], 
-  variable: '--font-rubik', 
+  subsets: ['latin'],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: '--font-rubik',
 });
 
 export const metadata: Metadata = {
@@ -23,10 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased ${rubik.variable} font-sans`}
+        className={`antialiased ${rubik.variable} font-sans bg-[#F8F8F8]`}
       >
-         <Header />
-      <BottomHeader/>
+        <Header />
+        <BottomHeader />
         {children}
       </body>
     </html>

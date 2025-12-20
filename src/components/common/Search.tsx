@@ -199,7 +199,11 @@ const Search = () => {
                                                 />
                                                 <div className="col-span-3">
                                                     <p className="font-medium truncate">{item.name}</p>
-                                                    <p className="text-sm text-red-600">BDT {item.sales_price}</p>
+                                                    <div className="flex gap-3">
+                                                        <p className="text-sm text-gray-600 line-through">BDT {item.regular_price}</p>
+                                                        <p className="text-sm text-red-600 font-bold">BDT {item.sales_price}</p>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </li>
