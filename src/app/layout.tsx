@@ -3,6 +3,7 @@ import "./globals.css";
 import { Rubik } from 'next/font/google'
 import Header from "@/components/common/Header";
 import BottomHeader from "@/components/common/BottomHeader";
+import Footer from "@/components/common/Footer";
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
         <Header />
         <BottomHeader />
         {children}
+        <Footer />
       </body>
     </html>
   );

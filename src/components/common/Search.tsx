@@ -4,7 +4,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useDebounce } from "@/hooks/useDebounce";
 import { NativeSelect, NativeSelectOption } from "../ui/native-select";
 import { Category } from "@/types/category";
-import { Item } from "@/types/item";
+import { Item } from "@/types/SearchItem";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "../ui/input";

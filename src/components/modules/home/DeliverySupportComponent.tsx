@@ -92,12 +92,12 @@ const ShippingInfo: React.FC = () => {
   return (
     <>
       <div className="w-full shadow py-8 border-gray-200 bg-white border rounded-lg">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+        <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
           {items.map((item, index) => (
             <button
               key={index}
               onClick={() => handleOpen(item)}
-              className="flex items-start gap-4 text-left hover:bg-gray-50 p-3 rounded-md transition"
+              className="flex cursor-pointer items-start gap-4 text-left hover:bg-gray-50 p-3 rounded-md transition"
             >
               <img
                 src={item.icon}
