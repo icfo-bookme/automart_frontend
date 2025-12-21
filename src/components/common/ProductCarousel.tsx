@@ -44,7 +44,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
         className="w-full relative group"
       >
         <CarouselContent className="-ml-2 md:-ml-4">
-          {products.map((item) => {
+          {products.map((item, index) => {
             const discount = calculateDiscount(
               item.regular_price,
               item.sales_price
@@ -52,7 +52,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
 
             return (
               <CarouselItem
-                key={item.id}
+                key={`${item.id}-${index}`}
                 className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 min-w-[50%] sm:min-w-[33.333%] md:min-w-[25%] lg:min-w-[20%]"
               >
                 <div className="group/card relative bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 h-full flex flex-col">

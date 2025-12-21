@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { Item } from "@/types/item";
+import Header from "../modules/home/header";
 
 const calculateDiscount = (
     regular: number | string,
@@ -69,8 +70,9 @@ export default function InfiniteProductList() {
     return (
         <div className="px-4 md:px-6 lg:px-8 py-6">
             {/* Grid container with fixed columns */}
+            <Header title="All Products" />
             <div className="grid grid-cols-5 gap-4">
-                {items.map((item) => {
+                {items.map((item, index) => {
                     const discount = calculateDiscount(
                         item.regular_price,
                         item.sales_price
@@ -78,7 +80,7 @@ export default function InfiniteProductList() {
 
                     return (
                         <div
-                            key={item.id}
+                            key={`${item.id}-${index}`}
                             className="group bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 flex flex-col h-full"
                         >
                             {/* Discount Badge */}
