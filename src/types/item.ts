@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export type SubCategory = {
   id: number;
   category_id: number;
@@ -42,6 +44,7 @@ export type Item = {
   created_at: string;
   updated_at: string;
   sub_category: SubCategory;
+  category: Category;
 };
 
 

@@ -109,8 +109,6 @@ const BottomHeader = () => {
               ))}
             </nav>
 
-            {/* Logo */}
-            {/* <div className="text-2xl font-bold text-gray-900">R CAR</div> */}
           </div>
         </div>
       </header>

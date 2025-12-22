@@ -1,7 +1,7 @@
-import InfiniteProductList from "@/components/common/InfiniteProductList";
+import InfiniteProductList from "@/utils/InfiniteProductList";
 import Banner from "@/components/modules/home/Banner";
 import ShippingInfo from "@/components/modules/home/DeliverySupportComponent";
-import LatestProduct from "@/components/modules/home/LatestProducts/LatestProduct";
+import LatestProduct from "@/components/modules/home/ProductShow/LatestProduct";
 import { ssrFetch } from "@/lib/ssrFetch";
 import { Category } from "@/types/category";
 
@@ -12,12 +12,15 @@ export default async function Page() {
     <>
       <div className="">
         <Banner />
-        <ShippingInfo />
-        <LatestProduct sectionId={2} headerTitle="Latest Products" />
-        <LatestProduct sectionId={1} headerTitle="TREANDING" />
-        <LatestProduct sectionId={7} headerTitle="Book A Service" />
-        <LatestProduct sectionId={2} headerTitle="Shops" />
-        <InfiniteProductList  />
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <ShippingInfo />
+          <LatestProduct sectionId={2} headerTitle="LATEST COLLECTIONS" />
+          <LatestProduct sectionId={1} headerTitle="TREANDING" />
+          <LatestProduct sectionId={7} headerTitle="BOOK A SERVICE NOW" />
+          <LatestProduct sectionId={2} headerTitle="SHOPS" />
+          <InfiniteProductList />
+        </div>
+
       </div>
 
     </>

@@ -1,12 +1,12 @@
 import { ssrFetch } from "@/lib/ssrFetch";
 import Header from "../header";
 
-import { ProductCarousel } from "@/components/common/ProductCarousel";
-import { Item } from "@/types/item";
+import { ProductCarousel } from "@/utils/ProductCarousel";
+import { Item } from "@/types/Item";
 
 type LatestProductProps = {
-  sectionId: number;
-  headerTitle?: string;
+    sectionId: number;
+    headerTitle?: string;
 };
 
 const LatestProduct = async ({ sectionId, headerTitle }: LatestProductProps) => {

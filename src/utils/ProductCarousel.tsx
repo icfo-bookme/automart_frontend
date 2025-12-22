@@ -1,0 +1,134 @@
+"use client";
+
+import * as React from "react";
+import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+import { Eye, Heart, Star } from "lucide-react";
+import { Item } from "@/types/Item";
+import ProductModal from "./ProductModal";
+import Link from "next/link";
+import { slugify } from "./slugify";
+
+type ProductCarouselProps = {
+  products: Item[];
+};
+
+const calculateDiscount = (regular: number | string, sales: number | string) => {
+  const r = Number(regular);
+  const s = Number(sales);
+  if (!r || r <= s) return 0;
+  return Math.round(((r - s) / r) * 100);
+};
+
+export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
+  return (
+    <div className="w-full px-4 md:px-6 lg:px-8 py-6">
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+          slidesToScroll: 5,
+        }}
+        className="w-full relative"
+      >
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {products.map((item) => {
+            const discount = calculateDiscount(item.regular_price, item.sales_price);
+
+            return (
+              <CarouselItem
+                key={item.id}
+                className="group pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 min-w-[50%] sm:min-w-[33.333%] md:min-w-[25%] lg:min-w-[20%]"
+              >
+                <div className="group/card relative bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 h-full flex flex-col">
+                  {/* Discount Badge */}
+                  {discount > 0 && (
+                    <div className="absolute top-2 left-2 z-10">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-red-600 text-white">
+                        {discount}% OFF
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Image */}
+                  <div className="relative w-full h-[260px] flex items-center justify-center bg-white">
+                    <div className="relative w-[150px] h-[260px]">
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.resized_image}`}
+                        alt={item.name || "Product image"}
+                        fill
+                        className="object-contain transition-transform duration-300 group-hover/card:scale-105"
+                        sizes="150px"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="p-3 flex flex-col flex-grow border-t border-gray-100">
+                    <Link href={`/${slugify(item.name)}/${item.id}`} className="mb-3">
+                      <p className="text-xs font-semibold text-gray-700 mb-1 truncate uppercase">
+                        {item.sub_category?.name || "Category"}
+                      </p>
+
+                      <h3 className="text-sm font-bold text-gray-900 mb-2 line-clamp-2 h-10">
+                        {item.name || "Product Name"}
+                      </h3>
+
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className="w-3 h-3 fill-yellow-400 text-yellow-400"
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-gray-500 ml-1">Rate this product</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {discount > 0 ? (
+                          <>
+                            <span className="text-sm line-through text-gray-400 font-medium">
+                              ৳{Number(item.regular_price).toLocaleString()}
+                            </span>
+                            <span className="text-lg font-bold text-red-600">
+                              ৳{Number(item.sales_price).toLocaleString()}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-lg font-bold text-gray-900">
+                            ৳{Number(item.regular_price).toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+
+                    {/* Add to Cart + Heart + Modal */}
+                    <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <button className="w-full cursor-pointer font-bold col-span-2 py-2 bg-red-600 text-white text-sm rounded hover:bg-gray-800 transition-colors duration-200">
+                        Add to Cart
+                      </button>
+                      <Heart className="col-span-1 cursor-pointer h-8 w-8 text-red-600 hover:text-gray-900" />
+                      <ProductModal product={item} />
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+
+        <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 md:-translate-x-1/2 z-10 h-8 w-8 md:h-10 md:w-10 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 shadow-md transition-all duration-200" />
+        <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 md:translate-x-1/2 z-10 h-8 w-8 md:h-10 md:w-10 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 shadow-md transition-all duration-200" />
+      </Carousel>
+    </div>
+  );
+};

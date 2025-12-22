@@ -91,7 +91,7 @@ const ShippingInfo: React.FC = () => {
 
   return (
     <>
-      <div className="w-full shadow py-8 border-gray-200 bg-white border rounded-lg">
+      <div className="w-full  py-2 my-6 border-gray-200 bg-white border rounded-lg">
         <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
           {items.map((item, index) => (
             <button
