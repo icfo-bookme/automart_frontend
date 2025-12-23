@@ -86,7 +86,7 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative bg-red-600 p-6"
+              className="relative bg-red-600 p-6 hover:bg-red-800 transition-colors"
             >
               <Heart className="h-7 w-7 text-white" />
               <Badge

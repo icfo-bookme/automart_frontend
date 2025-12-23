@@ -15,7 +15,7 @@ export default function CartSheet() {
     return (
         <Sheet >
             <SheetTrigger asChild>
-                <Button variant="destructive" className="relative gap-2 text-medium py-5 text-white font-bold">
+                <Button variant="destructive" className="relative gap-2 text-medium py-5 text-white font-bold hover:bg-red-800">
                     <ShoppingCart className="h-5 w-5" /> Cart
                     {cartItems.length > 0 && (
                         <span className="ml-1 bg-blue-600  text-white rounded-full px-2 py-0.5 text-xs">{cartItems.length}</span>
@@ -44,7 +44,7 @@ export default function CartSheet() {
                             <span>৳{totalPrice.toLocaleString()}</span>
                         </div>
                         <div className="w-[80%] mx-auto">
-                            <Button className="w-full bg-red-600 text-white rounded-sm">Checkout</Button>
+                            <Button className="w-full bg-red-600 hover:bg-red-800 text-white rounded-sm">Checkout</Button>
                         </div>
 
                     </div>
