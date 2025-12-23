@@ -16,6 +16,7 @@ import ProductModal from "./ProductModal";
 import Link from "next/link";
 import { slugify } from "./slugify";
 import AddToCartButton from "@/components/modules/cart/AddToCartButton";
+import AddToWishlistButton from "@/components/modules/wishlist/AddToWishlistButton";
 
 type ProductCarouselProps = {
   products: Item[];
@@ -95,21 +96,28 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) =>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        {discount > 0 ? (
-                          <>
-                            <span className="text-sm line-through text-gray-400 font-medium">
+                        {Number(item.sales_price) > 0 ? (
+                          discount > 0 ? (
+                            <>
+                              <span className="text-sm line-through text-gray-400 font-medium">
+                                ৳{Number(item.regular_price).toLocaleString()}
+                              </span>
+                              <span className="text-lg font-bold text-red-600">
+                                ৳{Number(item.sales_price).toLocaleString()}
+                              </span>
+                            </>
+                          ) : (
+                            <span className="text-lg font-bold text-gray-900">
                               ৳{Number(item.regular_price).toLocaleString()}
                             </span>
-                            <span className="text-lg font-bold text-red-600">
-                              ৳{Number(item.sales_price).toLocaleString()}
-                            </span>
-                          </>
+                          )
                         ) : (
-                          <span className="text-lg font-bold text-gray-900">
-                            ৳{Number(item.regular_price).toLocaleString()}
-                          </span>
+                          <button className="px-3 py-1 text-sm font-bold text-white bg-red-600 rounded hover:bg-blue-700 transition-colors duration-200">
+                            Call Us for Price
+                          </button>
                         )}
                       </div>
+
                     </Link>
 
                     {/* Add to Cart + Heart + Modal */}
@@ -117,7 +125,9 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) =>
                       <div className="cursor-pointer w-full col-span-2">
                         <AddToCartButton product={item} />
                       </div>
-                      <Heart className="col-span-1 cursor-pointer h-8 w-8 text-red-600 hover:text-gray-900" />
+                      <div>
+                        <AddToWishlistButton product={item} />
+                      </div>
                       <ProductModal product={item} />
                     </div>
                   </div>

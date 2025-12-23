@@ -34,6 +34,7 @@ export default function Header() {
   // Redux state (only safe after mount)
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -82,13 +83,17 @@ export default function Header() {
 
         <div className="flex items-center gap-4 col-span-1">
           <div className="flex items-center gap-6 col-span-1">
-            <Button variant="ghost" size="icon" className="relative bg-red-600 p-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative bg-red-600 p-6"
+            >
               <Heart className="h-7 w-7 text-white" />
               <Badge
-                className="absolute text-white bg-blue-600 -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs"
+                className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs text-white bg-blue-600"
                 variant="destructive"
               >
-                0
+                {wishlistItems.length}
               </Badge>
             </Button>
 

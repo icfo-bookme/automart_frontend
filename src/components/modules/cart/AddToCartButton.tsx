@@ -9,7 +9,6 @@ type Props = { product: Item };
 
 const AddToCartButton = ({ product }: Props) => {
   const dispatch = useDispatch();
-    console.log("AddToCartButton rendering for product:", product);
   const handleAddToCart = () => {
     dispatch(
       addToCart({

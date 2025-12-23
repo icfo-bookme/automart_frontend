@@ -130,8 +130,8 @@ export default function HeroCarousel() {
                         <button
                             key={index}
                             className={`transition-all duration-300 rounded-full ${current === index
-                                    ? "bg-red-600 w-4 h-4"  // Active dot: White color
-                                    : "bg-white/50 hover:bg-white/80 w-3 h-3"  // Inactive dots: Semi-transparent white
+                                ? "bg-red-600 w-4 h-4"  // Active dot: White color
+                                : "bg-white/50 hover:bg-white/80 w-3 h-3"  // Inactive dots: Semi-transparent white
                                 }`}
                             onClick={() => api?.scrollTo(index)}
                             aria-label={`Go to slide ${index + 1}`}
