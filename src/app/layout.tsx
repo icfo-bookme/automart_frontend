@@ -4,6 +4,9 @@ import { Rubik } from 'next/font/google'
 import Header from "@/components/common/Header";
 import BottomHeader from "@/components/common/BottomHeader";
 import Footer from "@/components/common/Footer";
+import ReduxProvider from "@/providers/ReduxProvider";
+import FloatingButton from "@/components/modules/cart/FloatingButton";
+import { ShoppingCart } from "lucide-react";
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -26,10 +29,13 @@ export default function RootLayout({
       <body
         className={`antialiased ${rubik.variable} font-sans bg-[#F8F8F8]`}
       >
+        <ReduxProvider>
         <Header />
         <BottomHeader />
         {children}
-        <Footer />
+        {/* Floating cart button */}
+        <FloatingButton icon={<ShoppingCart />} label="Cart" />
+        <Footer /></ReduxProvider>
       </body>
     </html>
   );

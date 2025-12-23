@@ -15,6 +15,7 @@ import { Item } from "@/types/Item";
 import ProductModal from "./ProductModal";
 import Link from "next/link";
 import { slugify } from "./slugify";
+import AddToCartButton from "@/components/modules/cart/AddToCartButton";
 
 type ProductCarouselProps = {
   products: Item[];
@@ -113,9 +114,9 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) =>
 
                     {/* Add to Cart + Heart + Modal */}
                     <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <button className="w-full cursor-pointer font-bold col-span-2 py-2 bg-red-600 text-white text-sm rounded hover:bg-gray-800 transition-colors duration-200">
-                        Add to Cart
-                      </button>
+                      <div className="cursor-pointer w-full col-span-2">
+                        <AddToCartButton product={item} />
+                      </div>
                       <Heart className="col-span-1 cursor-pointer h-8 w-8 text-red-600 hover:text-gray-900" />
                       <ProductModal product={item} />
                     </div>

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import Autoplay from "embla-carousel-autoplay"
+import Link from "next/link"
+import { ChevronsRight } from "lucide-react"
 
 const slides = [
     {
@@ -102,12 +104,12 @@ export default function HeroCarousel() {
                                     dangerouslySetInnerHTML={{ __html: slide.subtitle }}
                                 />
                                 <Button asChild>
-                                    <a
+                                    <Link
                                         href={slide.link}
                                         className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
                                     >
-                                        Shop now
-                                    </a>
+                                        Shop now  <span className=""> <ChevronsRight /> </span>
+                                    </Link>
                                 </Button>
                             </div>
                         </CarouselItem>

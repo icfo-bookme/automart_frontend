@@ -7,8 +7,8 @@ import { Heart, Star } from "lucide-react";
 import { Item } from "@/types/Item";
 import Header from "../components/modules/home/header";
 import ProductModal from "./ProductModal";
+import AddToCartButton from "@/components/modules/cart/AddToCartButton";
 
-/* ---------------- Utils ---------------- */
 const calculateDiscount = (
   regular: number | string,
   sales: number | string
@@ -26,7 +26,6 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-/* ---------------- Component ---------------- */
 export default function InfiniteProductList() {
   const [items, setItems] = useState<Item[]>([]);
   const [page, setPage] = useState(1);
@@ -65,7 +64,7 @@ export default function InfiniteProductList() {
 
   useEffect(() => {
     fetchItems();
-  }, []); // initial load only
+  }, []);
 
   useEffect(() => {
     if (!observerRef.current) return;
@@ -89,7 +88,7 @@ export default function InfiniteProductList() {
       <Header title="All Products" />
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        {items.map((item,index) => {
+        {items.map((item, index) => {
           const discount = calculateDiscount(
             item.regular_price,
             item.sales_price
@@ -162,13 +161,12 @@ export default function InfiniteProductList() {
                 </Link>
 
                 <ProductModal product={item} />
-
-                {/* Actions */}
-                <div className="mt-3 grid grid-cols-3 gap-4 opacity-0 group-hover:opacity-100 transition">
-                  <button className="col-span-2 py-2 bg-red-600 text-white text-sm font-medium rounded hover:bg-gray-800">
-                    Add to Cart
-                  </button>
-                  <Heart className="h-8 w-8 text-red-600 hover:text-gray-900 cursor-pointer" />
+                <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="cursor-pointer w-full col-span-2">
+                    <AddToCartButton product={item} />
+                  </div>
+                  <Heart className="col-span-1 cursor-pointer h-8 w-8 text-red-600 hover:text-gray-900" />
+                  <ProductModal product={item} />
                 </div>
               </div>
             </div>
