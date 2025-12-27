@@ -2,12 +2,7 @@ import { ssrFetch } from "@/lib/ssrFetch";
 import { Item } from "@/types/Item";
 import Image from "next/image";
 
-type PageProps = {
-  params: Promise<{
-    name: string;
-    id: string;
-  }>;
-};
+
 
 const PageComponents = async ({ params }: PageProps) => {
   const { name, id } = await params;

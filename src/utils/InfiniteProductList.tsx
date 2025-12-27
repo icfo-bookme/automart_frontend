@@ -8,23 +8,8 @@ import { Item } from "@/types/Item";
 import Header from "../components/modules/home/header";
 import ProductModal from "./ProductModal";
 import AddToCartButton from "@/components/modules/cart/AddToCartButton";
-
-const calculateDiscount = (
-  regular: number | string,
-  sales: number | string
-): number => {
-  const r = Number(regular);
-  const s = Number(sales);
-  if (!r || r <= s) return 0;
-  return Math.round(((r - s) / r) * 100);
-};
-
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+import { calculateDiscount } from "./calculateDiscount";
+import { slugify } from "./slugify";
 
 export default function InfiniteProductList() {
   const [items, setItems] = useState<Item[]>([]);
@@ -85,7 +70,7 @@ export default function InfiniteProductList() {
 
   return (
     <div className="relative px-4 md:px-6 lg:px-8 py-6">
-      <Header title="All Products" />
+      <Header title="All Product" />
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {items.map((item, index) => {

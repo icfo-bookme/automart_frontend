@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import Image from "next/image";
 import {
@@ -18,9 +17,6 @@ import { slugify } from "./slugify";
 import AddToCartButton from "@/components/modules/cart/AddToCartButton";
 import AddToWishlistButton from "@/components/modules/wishlist/AddToWishlistButton";
 
-type ProductCarouselProps = {
-  products: Item[];
-};
 
 const calculateDiscount = (regular: number | string, sales: number | string) => {
   const r = Number(regular);

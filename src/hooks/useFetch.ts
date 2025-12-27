@@ -7,6 +7,7 @@ export function useFetch<T>(url: string | null) {
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+console.log("Base URL:", baseUrl);
   useEffect(() => {
     if (!url) return;
 

@@ -1,20 +1,22 @@
 import Sidebar from "@/components/modules/shops/Sidebar"
-import InfiniteProductList from "@/utils/InfiniteProductList"
 
-
-const page = () => {
-    return (
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (  
         <div className="container mx-auto">
             <div className="grid grid-cols-12">
                 <div className="col-span-3">
                     <Sidebar />
                 </div>
                 <div className="col-span-9">
-                   <InfiniteProductList />
+                  <main>{children}</main>
                 </div>
             </div>
-        </div>
-    )
+        </div> 
+        
+    
+  )
 }
-
-export default page

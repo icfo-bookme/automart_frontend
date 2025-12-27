@@ -9,8 +9,7 @@ type LatestProductProps = {
     headerTitle?: string;
 };
 
-const LatestProduct = async ({ sectionId, headerTitle }: LatestProductProps) => {
-    console.log("Section ID:", sectionId);
+const Product = async ({ sectionId, headerTitle }: LatestProductProps) => {
     const { data, error } = await ssrFetch<Item[]>(
         `/items/${sectionId}`
     );
@@ -32,4 +31,4 @@ const LatestProduct = async ({ sectionId, headerTitle }: LatestProductProps) => 
     );
 };
 
-export default LatestProduct;
+export default Product;
