@@ -27,7 +27,7 @@ const calculateDiscount = (regular: number | string, sales: number | string) => 
 
 export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
   return (
-    <div className="w-full px-4 md:px-6 lg:px-8 py-6">
+    <div className="w-full  md:px-6 lg:px-8 py-6">
       <Carousel
         opts={{
           align: "start",
@@ -56,16 +56,14 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) =>
                   )}
 
                   {/* Image */}
-                  <div className="relative w-full h-[260px] flex items-center justify-center bg-white">
-                    <div className="relative w-[150px] h-[260px]">
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.resized_image}`}
-                        alt={item.name || "Product image"}
-                        fill
-                        className="object-contain transition-transform duration-300 group-hover/card:scale-105"
-                        sizes="150px"
-                      />
-                    </div>
+                  <div className="relative h-56 p-3">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.thumbnail}`}
+                      alt={item.name}
+                      fill
+                      className="object-contain transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+                    />
                   </div>
 
                   {/* Product Info */}
@@ -117,15 +115,19 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) =>
                     </Link>
 
                     {/* Add to Cart + Heart + Modal */}
-                    <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-100  transition-opacity duration-200">
+                      {/* lg:group-hover:opacity-100 lg:opacity-0  */}
                       <div className="cursor-pointer w-full col-span-2">
                         <AddToCartButton product={item} />
                       </div>
+
                       <div>
                         <AddToWishlistButton product={item} />
                       </div>
+
                       <ProductModal product={item} />
                     </div>
+
                   </div>
                 </div>
               </CarouselItem>

@@ -34,12 +34,12 @@ const AddToWishlistButton = ({ product }: Props) => {
   };
 
   return (
-    <Button
+    <Button asChild
       onClick={handleWishlist}
       className={`px-3 py-2 w-full text-sm ${
         isInWishlist
-          ? "bg-gray-200 text-gray-800"
-          : "bg-pink-600 text-white"
+          ? "bg-gray-800 text-gray-100"
+          : "bg-red-600 text-white"
       }`}
     >
       {isInWishlist ? <Heart className="h-4 w-4" /> : <Heart className="h-4 w-4" />}

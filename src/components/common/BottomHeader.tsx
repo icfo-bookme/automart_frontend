@@ -1,20 +1,30 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useFetch } from "@/hooks/useFetch"
 import { Menu, ChevronDown, X, HousePlus } from "lucide-react"
 import { CategoryWithSub } from "@/types/categoryWithSub"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from "@/components/ui/dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu"
+import { slugify } from "@/utils/slugify"
 
 const BottomHeader = () => {
-  const { data: categoriesData } = useFetch<CategoryWithSub[]>("/categories-with-sub")
+  const { data: categoriesData } =
+    useFetch<CategoryWithSub[]>("/categories-with-sub")
+
   const [categories, setCategories] = useState<CategoryWithSub[]>([])
   const [expandedCategory, setExpandedCategory] = useState<number | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  // ✅ ref for mobile menu
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null)
 
   const navItems = [
     { label: "SHOP", href: "/shop" },
@@ -32,6 +42,28 @@ const BottomHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // ✅ outside click close (mobile)
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      if (
+        mobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setMobileMenuOpen(false)
+        setExpandedCategory(null)
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutsideClick)
+    document.addEventListener("touchstart", handleOutsideClick)
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick)
+      document.removeEventListener("touchstart", handleOutsideClick)
+    }
+  }, [mobileMenuOpen])
+
   const toggleCategory = (id: number) => {
     setExpandedCategory(expandedCategory === id ? null : id)
   }
@@ -43,49 +75,52 @@ const BottomHeader = () => {
 
   return (
     <>
-      {/* Desktop Header */}
-      <header className={`hidden bg-[#222222] border-b-2 border-red-600  lg:block transition-all duration-200 ${isScrolled ? "shadow-md" : ""}`}>
+      {/* ================= DESKTOP HEADER ================= */}
+      <header
+        className={`hidden bg-[#222222] border-b-2 border-red-600 lg:block transition-all duration-200 ${
+          isScrolled ? "shadow-md" : ""
+        }`}
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-start py-3 gap-6">
-            {/* Categories Dropdown */}
-             <HousePlus className="text-white" />
+            <HousePlus className="text-white" />
+
             <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
               <DropdownMenuTrigger asChild>
-                <Button
-                  className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition-colors"
-                >
+                <Button className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700">
                   <Menu size={20} />
                   ALL CATEGORIES
                   <ChevronDown size={16} />
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="min-w-[280px] bg-white border border-gray-200 shadow-xl p-2 rounded-md">
+              <DropdownMenuContent className="min-w-[280px] bg-white border shadow-xl p-2 rounded-md">
                 {categories.map((category) => (
                   <div key={category.id}>
-                    {/* Category */}
                     <div
                       className="flex justify-between items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
                       onClick={() => toggleCategory(category.id)}
                     >
                       <span>{category.name}</span>
-                      {category.sub_categories && category.sub_categories.length > 0 && (
+                      {category.sub_categories?.length > 0 && (
                         <ChevronDown
                           size={16}
-                          className={`ml-2 transition-transform ${expandedCategory === category.id ? "rotate-180" : ""}`}
+                          className={`transition-transform ${
+                            expandedCategory === category.id
+                              ? "rotate-180"
+                              : ""
+                          }`}
                         />
                       )}
                     </div>
 
-                    {/* Subcategories */}
                     {expandedCategory === category.id &&
-                      category.sub_categories &&
-                      category.sub_categories.map((sub) => (
+                      category.sub_categories?.map((sub) => (
                         <Link
                           key={sub.id}
-                          href={`/subcategory/${sub.id}`}
-                          className="block pl-6 py-1 text-gray-600 hover:text-red-600 rounded"
-                          onClick={closeDropdown} // close when subcategory clicked
+                          href={`/subcategory/${slugify(sub.name)}/${sub.id}`}
+                          className="block pl-6 py-1 text-gray-600 hover:text-red-600"
+                          onClick={closeDropdown}
                         >
                           {sub.name}
                         </Link>
@@ -95,26 +130,28 @@ const BottomHeader = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Navigation Links */}
-            <nav className="flex text-white items-center gap-8">
+            <nav className="flex text-white gap-8">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-white font-semibold hover:text-red-600 transition-colors uppercase"
+                  className="font-semibold hover:text-red-600 uppercase"
                   onClick={closeDropdown}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
-
           </div>
         </div>
       </header>
 
-      {/* Mobile Header */}
-      <header className={`lg:hidden sticky top-0 z-40 bg-white ${isScrolled ? "shadow-md" : ""}`}>
+      {/* ================= MOBILE HEADER ================= */}
+      <header
+        className={`lg:hidden sticky top-0 z-40 bg-white ${
+          isScrolled ? "shadow-md" : ""
+        }`}
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-3">
             <Button
@@ -124,61 +161,57 @@ const BottomHeader = () => {
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
-
-            <div className="text-xl font-bold text-gray-900">R CAR</div>
-            <div className="w-10" /> {/* placeholder */}
           </div>
 
           {mobileMenuOpen && (
-            <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t z-50 lg:hidden">
-              <div className="p-4">
-                {/* Categories Accordion */}
-                <div className="mb-6">
-                  <h3 className="font-bold text-lg mb-3 px-2">ALL CATEGORIES</h3>
-                  <div className="space-y-1">
-                    {categories.map((category) => (
-                      <div key={category.id} className="border-b">
-                        <button
-                          onClick={() => toggleCategory(category.id)}
-                          className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-50"
+            <div
+              ref={mobileMenuRef}
+              className="absolute w-64 h-[82vh] overflow-auto top-full -left-6 bg-white shadow-lg border-t z-50"
+            >
+              <div>
+                <h3 className="font-bold text-lg mb-3 pt-4 px-2">
+                  ALL CATEGORIES
+                </h3>
+
+                {categories.map((category) => (
+                  <div key={category.id} className="border-b">
+                    <button
+                      onClick={() => toggleCategory(category.id)}
+                      className="flex justify-between w-full p-3 hover:bg-gray-50"
+                    >
+                      <span className="font-medium">{category.name}</span>
+                      {category.sub_categories?.length > 0 && (
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform ${
+                            expandedCategory === category.id
+                              ? "rotate-180"
+                              : ""
+                          }`}
+                        />
+                      )}
+                    </button>
+
+                    {expandedCategory === category.id &&
+                      category.sub_categories?.map((sub) => (
+                        <Link
+                          key={sub.id}
+                          href={`/subcategory/${slugify(sub.name)}/${sub.id}`}
+                          className="block pl-6 py-2 text-gray-600 hover:text-red-600"
+                          onClick={() => setMobileMenuOpen(false)}
                         >
-                          <span className="font-medium">{category.name}</span>
-                          {category.sub_categories && category.sub_categories.length > 0 && (
-                            <ChevronDown
-                              size={16}
-                              className={`transition-transform ${expandedCategory === category.id ? "rotate-180" : ""}`}
-                            />
-                          )}
-                        </button>
-
-                        {expandedCategory === category.id &&
-                          category.sub_categories &&
-                          category.sub_categories.length > 0 && (
-                            <div className="pl-4 pb-2">
-                              {category.sub_categories.map((sub) => (
-                                <Link
-                                  key={sub.id}
-                                  href={`/subcategory/${sub.id}`}
-                                  className="block p-2 text-gray-600 hover:text-red-600"
-                                  onClick={() => setMobileMenuOpen(false)}
-                                >
-                                  {sub.name}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
-                      </div>
-                    ))}
+                          {sub.name}
+                        </Link>
+                      ))}
                   </div>
-                </div>
+                ))}
 
-                {/* Navigation Links */}
-                <nav className="space-y-3">
+                <nav className="mt-4">
                   {navItems.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="block p-3 font-semibold text-gray-700 hover:bg-gray-50 rounded-md uppercase"
+                      className="block p-3 font-semibold hover:bg-gray-50 uppercase"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.label}

@@ -10,8 +10,10 @@ import ProductModal from "./ProductModal";
 import AddToCartButton from "@/components/modules/cart/AddToCartButton";
 import { calculateDiscount } from "./calculateDiscount";
 import { slugify } from "./slugify";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
-export default function InfiniteProductList() {
+export default function InfiniteProductList({ sort, styleClass, title }: { sort?: string, styleClass?: string, title?: string }) {
   const [items, setItems] = useState<Item[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -25,9 +27,13 @@ export default function InfiniteProductList() {
     try {
       setLoading(true);
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/items?page=${page}`
-      );
+      const url =
+        sort === "newest"
+          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/items?page=${page}`
+          : `${process.env.NEXT_PUBLIC_API_BASE_URL}/offers/items?page=${page}`;
+
+      const res = await fetch(url);
+
 
       if (!res.ok) throw new Error("Failed to fetch");
 
@@ -69,10 +75,10 @@ export default function InfiniteProductList() {
   }, [fetchItems]);
 
   return (
-    <div className="relative px-4 md:px-6 lg:px-8 py-6">
-      <Header title="All Product" />
+    <div className="relative  md:px-6 lg:px-8 py-6">
+      <Header title={title || "All Product"} />
 
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className={`grid grid-cols-2 lg:${styleClass || "grid-cols-5"} gap-4`}>
         {items.map((item, index) => {
           const discount = calculateDiscount(
             item.regular_price,
@@ -92,7 +98,7 @@ export default function InfiniteProductList() {
               )}
 
               {/* Image */}
-              <div className="relative h-40 p-3">
+              <div className="relative h-56 p-3">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.thumbnail}`}
                   alt={item.name}
@@ -146,7 +152,7 @@ export default function InfiniteProductList() {
                 </Link>
 
                 <ProductModal product={item} />
-                <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200">
                   <div className="cursor-pointer w-full col-span-2">
                     <AddToCartButton product={item} />
                   </div>
@@ -163,10 +169,10 @@ export default function InfiniteProductList() {
       {hasMore && (
         <div ref={observerRef} className="h-20 flex justify-center items-center">
           {loading && (
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
-              <p className="text-sm text-gray-500">Loading more products...</p>
-            </div>
+            <Button disabled size="sm">
+              <Spinner />
+              Loading...
+            </Button>
           )}
         </div>
       )}

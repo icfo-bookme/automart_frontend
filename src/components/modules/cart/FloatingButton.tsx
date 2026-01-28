@@ -47,7 +47,7 @@ export default function FloatingButton({
             {/* Floating Button */}
             <Button
                 variant="destructive"
-                className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full px-4 py-3 shadow-lg hover:scale-105 transition-transform"
+                className="fixed bottom-10 right-6 z-50 flex items-center gap-2 rounded-full px-4 py-3 shadow-lg hover:scale-105 transition-transform"
                 onClick={() => setOpen(true)}
             >
                 {icon}
@@ -64,7 +64,7 @@ export default function FloatingButton({
                 <SheetContent side="right" className="w-[400px]">
                     <SheetHeader>
                         <SheetTitle>Shopping Cart</SheetTitle>
-                        
+
                     </SheetHeader>
 
                     <div className="mt-4 flex-1 overflow-y-auto">

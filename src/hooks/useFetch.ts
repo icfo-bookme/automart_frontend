@@ -6,8 +6,7 @@ export function useFetch<T>(url: string | null) {
   const [data, setData] = useState<T>([] as unknown as T);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
-console.log("Base URL:", baseUrl);
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   useEffect(() => {
     if (!url) return;
 

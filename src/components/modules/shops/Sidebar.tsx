@@ -5,6 +5,9 @@ import { ChevronDown } from "lucide-react"
 import { useFetch } from "@/hooks/useFetch"
 import { CategoryWithSub } from "@/types/categoryWithSub"
 import { slugify } from "@/utils/slugify"
+import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 
 const Sidebar = () => {
     const { data: categoriesData } = useFetch<CategoryWithSub[]>("/categories-with-sub")
@@ -22,11 +25,14 @@ const Sidebar = () => {
     }
     
     return (
-        <div className="min-w-[280px]">
-            <div className="bg-white border border-gray-200 shadow-xl p-4 rounded-md">
+        <div className="min-w-[280px] ">
+            <div className="bg-white border border-gray-200 shadow-xl p-4 rounded-md min-h-[400px]">
                 {categories.length === 0 ? (
                     <div className="text-center py-4 text-gray-500">
-                        No categories found
+                       <Button disabled size="sm">
+              <Spinner />
+              Loading...
+            </Button>
                     </div>
                 ) : (
                     categories.map((category) => (

@@ -89,7 +89,7 @@ const Card = ({ products , nam}: ProductCarouselProps) => {
                                     </Link>
 
                                     <ProductModal product={item} />
-                                    <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                    <div className="mt-auto grid grid-cols-3 gap-5 items-center justify-between opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200">
                                         <div className="cursor-pointer w-full col-span-2">
                                             <AddToCartButton product={item} />
                                         </div>

@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Image from "next/image";
 
 interface InfoItem {
   icon: string;
@@ -99,11 +100,14 @@ const ShippingInfo: React.FC = () => {
               onClick={() => handleOpen(item)}
               className="flex cursor-pointer items-start gap-4 text-left hover:bg-gray-50 p-3 rounded-md transition"
             >
-              <img
+              <Image
                 src={item.icon}
                 alt={item.title}
+                width={40}
+                height={40}
                 className="w-10 h-10 object-contain"
               />
+
               <div>
                 <h4 className="font-semibold text-gray-900 mb-1">
                   {item.title}
@@ -123,9 +127,12 @@ const ShippingInfo: React.FC = () => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-3">
               {activeItem && (
-                <img
+                <Image
                   src={activeItem.icon}
                   alt={activeItem.title}
+                  width={40}
+                  height={40}
+                  fetchPriority={"high"}
                   className="w-8 h-8"
                 />
               )}

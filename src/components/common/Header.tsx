@@ -19,6 +19,7 @@ import Search from "./Search";
 import Link from "next/link";
 import { RootState } from "@/store";
 import CartSheet from "../modules/cart/CartSheet";
+import BottomHeader from "./BottomHeader";
 
 export default function Header() {
   const router = useRouter();
@@ -70,37 +71,46 @@ export default function Header() {
       </div>
 
       {/* Main Header */}
-      <div className="grid grid-cols-5 gap-6 px-6 py-4 items-center">
+      <div className="md:grid grid-cols-5 flex justify-between gap-6 px-6 md:py-3 items-center ">
         {/* Logo */}
+        <div className="lg:hidden col-span-1">
+          <BottomHeader />
+        </div>
+
         <Link href={"/"} className="col-span-1 flex items-center gap-2">
-          <Image src="/logo/automax-lg.png" alt="Automart" width={150} height={50} priority />
+          <Image src="/logo/automax-lg.png" alt="Automart" width={100} height={50} priority fetchPriority={"high"} />
         </Link>
 
         {/* Search Bar */}
-        <div className="col-span-3">
+        <div className="col-span-3 hidden md:flex">
           <Search />
         </div>
 
         <div className="flex items-center gap-4 col-span-1">
           <div className="flex items-center gap-6 col-span-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative bg-red-600 p-6 hover:bg-red-800 transition-colors"
-            >
-              <Heart className="h-7 w-7 text-white" />
-              <Badge
-                className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs text-white bg-blue-600"
-                variant="destructive"
+            {/* Wishlist Button */}
+            <Link href="/wishlist">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative bg-red-600 md:p-6 hover:bg-red-800 transition-colors"
               >
-                {wishlistItems.length}
-              </Badge>
-            </Button>
+                <Heart className="h-7 w-7 text-white" />
+                <Badge
+                  className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs text-white bg-blue-600"
+                  variant="destructive"
+                >
+                  {wishlistItems.length}
+                </Badge>
+              </Button></Link>
 
             {/* ShadCN Sheet Trigger */}
             <CartSheet />
+
           </div>
         </div>
+
+
       </div>
     </header>
   );

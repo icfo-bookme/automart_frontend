@@ -7,6 +7,8 @@ import Footer from "@/components/common/Footer";
 import ReduxProvider from "@/providers/ReduxProvider";
 import FloatingButton from "@/components/modules/cart/FloatingButton";
 import { ShoppingCart } from "lucide-react";
+import BottomNavigation from "@/components/common/BottomNavigation";
+import { Toaster } from "sonner";
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -30,12 +32,28 @@ export default function RootLayout({
         className={`antialiased ${rubik.variable} font-sans bg-[#F8F8F8]`}
       >
         <ReduxProvider>
-        <Header />
-        <BottomHeader />
-        {children}
-        {/* Floating cart button */}
-        <FloatingButton icon={<ShoppingCart />} label="Cart" />
-        <Footer /></ReduxProvider>
+          <Header />
+          <div className="hidden md:block">
+            <BottomHeader />
+          </div>
+
+          {children}
+          {/* Floating cart button */}
+          <FloatingButton icon={<ShoppingCart />} label="Cart" />
+
+          <Footer />
+          <BottomNavigation />
+          <Toaster
+            position="top-right"
+            richColors
+            toastOptions={{
+              style: {
+                background: "#16a34a", // Tailwind green-600 hex
+                color: "#ffffff", // white text
+              },
+            }}
+          />
+        </ReduxProvider>
       </body>
     </html>
   );

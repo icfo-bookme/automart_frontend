@@ -6,9 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (  
-        <div className="container mx-auto">
-            <div className="grid grid-cols-12">
-                <div className="col-span-3">
+        <div className="min-h-screen container mx-auto">
+            <div className="md:grid grid-cols-12">
+                <div className="hidden lg:block col-span-3">
                     <Sidebar />
                 </div>
                 <div className="col-span-9">

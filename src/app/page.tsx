@@ -13,12 +13,19 @@ export default async function Page() {
       <div className="">
         <Banner />
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <ShippingInfo />
-          <Products sectionId={2} headerTitle="LATEST COLLECTIONS" />
+          <div className="hidden lg:block">
+            <ShippingInfo />
+          </div>
+
+          <div className="my-8 lg:my-0">
+            <Products sectionId={2} headerTitle="LATEST COLLECTIONS" />
+          </div>
+
+
           <Products sectionId={1} headerTitle="TREANDING" />
           <Products sectionId={7} headerTitle="BOOK A SERVICE NOW" />
           <Products sectionId={2} headerTitle="SHOPS" />
-          <InfiniteProductList />
+          <InfiniteProductList sort="newest" styleClass="grid-cols-4" />
         </div>
 
       </div>

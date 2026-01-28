@@ -14,6 +14,9 @@ const AddToCartButton = ({ product }: Props) => {
       addToCart({
         id: product.id,
         title: product.name,
+        barcode: product.barcode,
+        regular_price: product.regular_price,
+        cost_price: product.cost_price,
         price: Number(product.sales_price),
         thumbnail: product.thumbnail,
       })
@@ -21,7 +24,7 @@ const AddToCartButton = ({ product }: Props) => {
   };
 
   return (
-    <Button
+    <Button 
       onClick={handleAddToCart}
       className="px-3 py-2 bg-red-600 text-white rounded w-full text-sm"
     >
