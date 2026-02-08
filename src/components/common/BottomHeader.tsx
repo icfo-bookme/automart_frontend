@@ -77,9 +77,8 @@ const BottomHeader = () => {
     <>
       {/* ================= DESKTOP HEADER ================= */}
       <header
-        className={`hidden bg-[#222222] border-b-2 border-red-600 lg:block transition-all duration-200 ${
-          isScrolled ? "shadow-md" : ""
-        }`}
+        className={`hidden bg-[#222222] border-b-2 border-red-600 lg:block transition-all duration-200 ${isScrolled ? "shadow-md" : ""
+          }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-start py-3 gap-6">
@@ -94,26 +93,25 @@ const BottomHeader = () => {
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="min-w-[280px] bg-white border shadow-xl p-2 rounded-md">
+              <DropdownMenuContent className="min-w-[220px] bg-white border shadow-xl p-2 rounded-md">
                 {categories.map((category) => (
                   <div key={category.id}>
                     <div
                       className="flex justify-between items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
                       onClick={() => toggleCategory(category.id)}
                     >
-                      <span>{category.name}</span>
+                      <span className="font-semibold">{category.name}</span>
                       {category.sub_categories?.length > 0 && (
                         <ChevronDown
                           size={16}
-                          className={`transition-transform ${
-                            expandedCategory === category.id
+                          className={`transition-transform ${expandedCategory === category.id
                               ? "rotate-180"
                               : ""
-                          }`}
+                            }`}
                         />
                       )}
                     </div>
-
+                    <hr />
                     {expandedCategory === category.id &&
                       category.sub_categories?.map((sub) => (
                         <Link
@@ -148,9 +146,8 @@ const BottomHeader = () => {
 
       {/* ================= MOBILE HEADER ================= */}
       <header
-        className={`lg:hidden sticky top-0 z-40 bg-white ${
-          isScrolled ? "shadow-md" : ""
-        }`}
+        className={`lg:hidden sticky top-0 z-40 bg-white ${isScrolled ? "shadow-md" : ""
+          }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-3">
@@ -179,15 +176,14 @@ const BottomHeader = () => {
                       onClick={() => toggleCategory(category.id)}
                       className="flex justify-between w-full p-3 hover:bg-gray-50"
                     >
-                      <span className="font-medium">{category.name}</span>
+                      <span className="font-semibold">{category.name}</span>
                       {category.sub_categories?.length > 0 && (
                         <ChevronDown
                           size={16}
-                          className={`transition-transform ${
-                            expandedCategory === category.id
+                          className={`transition-transform ${expandedCategory === category.id
                               ? "rotate-180"
                               : ""
-                          }`}
+                            }`}
                         />
                       )}
                     </button>

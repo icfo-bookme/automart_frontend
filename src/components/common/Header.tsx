@@ -78,7 +78,7 @@ export default function Header() {
         </div>
 
         <Link href={"/"} className="col-span-1 flex items-center gap-2">
-          <Image src="/logo/automax-lg.png" alt="Automart" width={100} height={50} priority fetchPriority={"high"} />
+          <Image src="/logo/automax-lg.png" alt="Automart.com.bd car parts and accessories online marketplace" width={100} height={50} priority fetchPriority={"high"} />
         </Link>
 
         {/* Search Bar */}

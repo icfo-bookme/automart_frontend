@@ -158,7 +158,7 @@ const Search = () => {
                 >
                     <NativeSelectOption value="">All Categories</NativeSelectOption>
                     {categories?.map((cat) => (
-                        <NativeSelectOption key={cat.id} value={String(cat.id)}>
+                        <NativeSelectOption  key={cat.id} value={String(cat.id)}>
                             {cat.name}
                         </NativeSelectOption>
                     ))}

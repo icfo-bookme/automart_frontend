@@ -101,7 +101,7 @@ export default function InfiniteProductList({ sort, styleClass, title }: { sort?
               <div className="relative h-56 p-3">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.thumbnail}`}
-                  alt={item.name}
+                  alt={item.details.slice(0, 80) || item.name}
                   fill
                   className="object-contain transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
@@ -121,12 +121,12 @@ export default function InfiniteProductList({ sort, styleClass, title }: { sort?
 
                   {/* Rating */}
                   <div className="flex items-center gap-1 my-2">
-                    {[...Array(5)].map((_, i) => (
+                    {/* {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
                         className="w-3 h-3 fill-yellow-400 text-yellow-400"
                       />
-                    ))}
+                    ))} */}
                     <span className="text-xs text-gray-500 ml-1">
                       Rate this product
                     </span>

@@ -18,30 +18,35 @@ const slides = [
         id: 1,
         title: "Interior Accessories",
         subtitle: "Seat Cover, Steering Cover",
+        alt: "Automart.com.bd - Premium car accessories and motorcycle parts online store in Bangladesh",
         image: "/slider/slider06.jpg",
     },
     {
         id: 5,
         title: "Interior Accessories",
         subtitle: "Seat Cover, Steering Cover",
+        alt:"Professional car care products including 3M wax and Kangaroo foam cleaners for detailing in Bangladesh",
         image: "/slider/slider.webp",
     },
     {
         id: 2,
         title: "Car Floor Mats",
         subtitle: "Premium & Durable",
+        alt:"Genuine motorcycle accessories and performance parts for R15 V4 and GSXR in Chattogram, Bangladesh",
         image: "/slider/slider05.jpg",
     },
     {
         id: 3,
         title: "Car Electronics",
         subtitle: "Sound & Lighting",
+        alt:"Modern car interior accessories: Leather seat covers, Android players, and premium car perfumes",  
         image: "/slider/slider2.jpg",
     },
     {
         id: 4,
         title: "Exterior Accessories",
         subtitle: "Style Your Ride",
+        alt:"Flash sale on waterproof car body covers and hybrid battery filters at Automart Bangladesh",
         image: "/slider/slider09.jpg",
     },
 ]
@@ -81,7 +86,7 @@ export default function HeroCarousel() {
                             <div className="relative h-[250px] rounded-xl overflow-hidden group">
                                 <Image
                                     src={slide.image}
-                                    alt={slide.title}
+                                    alt={slide.alt}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                                 />

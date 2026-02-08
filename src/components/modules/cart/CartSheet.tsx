@@ -92,15 +92,15 @@ export default function CartSheet() {
         </div>
 
         {cartItems.length > 0 && (
-          <div className="mt-4 border-t border-gray-200 pt-4">
+          <div className="m-4 border-t border-gray-200 pt-4">
             <div className="flex justify-between font-bold mb-4 w-[80%] mx-auto">
               <span>Total:</span>
               <span>৳{totalPrice.toLocaleString()}</span>
             </div>
             <Link href="/checkout" onClick={() => setIsOpen(false)}>
-              <div className="w-[80%] mx-auto">
+              <div className="w-[100%] mx-auto">
                 <Button
-                  className="w-full bg-red-600 hover:bg-red-800 text-white rounded-sm"
+                  className="w-full text-xl bg-red-600 hover:bg-red-800 text-white "
                   onClick={() => setIsOpen(false)}
                 >
                   Checkout

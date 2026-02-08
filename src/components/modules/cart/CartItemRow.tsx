@@ -31,87 +31,97 @@ export default function CartItemRow({ item }: Props) {
     const subtotal = item.price * item.quantity;
 
     return (
-        <Card 
-            className={`flex items-center p-4 gap-4 transition-all duration-300 ${
-                isRemoving ? "opacity-0 scale-95" : "opacity-100"
-            }`}
-        >
-            {/* Product Image */}
-            <div className="relative flex-shrink-0">
-                <div className="relative w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-lg bg-gray-50">
-                    <Image
-                        src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.thumbnail}`}
-                        alt={item.title}
-                        fill
-                        className="object-cover hover:scale-105 transition-transform duration-200"
-                        sizes="(max-width: 96px) 100vw, 96px"
-                    />
-                </div>
-                {item.quantity > 1 && (
-                    <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-semibold rounded-full w-6 h-6 flex items-center justify-center">
-                        ×{item.quantity}
-                    </div>
-                )}
-            </div>
+       <Card
+  className={`grid grid-cols-[auto_1fr] gap-4 p-4 transition-all duration-300 ${
+    isRemoving ? "opacity-0 scale-95" : "opacity-100"
+  }`}
+>
+  {/* LEFT: Image */}
+  <div className="relative w-20 h-20 md:w-24 md:h-24">
+    <div className="relative w-full h-full overflow-hidden rounded-lg bg-gray-50">
+      <Image
+        src={`${process.env.NEXT_PUBLIC_MAIN_DOMAIN}/${item.thumbnail}`}
+        alt={item.title}
+        fill
+        className="object-cover"
+      />
+    </div>
 
-            {/* Product Info */}
-            <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 truncate mb-1">
-                    {item.title}
-                </h3>
-                <p className="text-sm text-gray-500 mb-2">
-                    Unit: ৳{item.price.toLocaleString()}
-                </p>
-                
-                {/* Quantity Controls */}
-                <div className="flex items-center gap-2">
-                    <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={handleDecrease}
-                        disabled={item.quantity <= 1}
-                        className="h-8 w-8 p-0 rounded-full"
-                    >
-                        <Minus className="w-3 h-3" />
-                    </Button>
-                    
-                    <span className="min-w-8 text-center font-medium">
-                        {item.quantity}
-                    </span>
-                    
-                    <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={handleIncrease}
-                        className="h-8 w-8 p-0 rounded-full"
-                    >
-                        <Plus className="w-3 h-3" />
-                    </Button>
-                    
-                    <div className="ml-auto flex items-center gap-4">
-                        <div className="text-right">
-                            <p className="text-lg font-semibold text-gray-900">
-                                ৳{subtotal.toLocaleString()}
-                            </p>
-                            {item.quantity > 1 && (
-                                <p className="text-xs text-gray-500">
-                                    ৳{item.price.toLocaleString()} × {item.quantity}
-                                </p>
-                            )}
-                        </div>
-                        
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={handleRemove}
-                            className="text-gray-400 hover:text-red-600 hover:bg-red-50"
-                        >
-                            <Trash2 className="w-4 h-4" />
-                            <span className="sr-only">Remove item</span>
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </Card>
+    {item.quantity > 1 && (
+      <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-semibold rounded-full w-6 h-6 flex items-center justify-center">
+        ×{item.quantity}
+      </span>
+    )}
+  </div>
+
+  {/* RIGHT: Info */}
+  <div className="grid gap-2">
+    {/* Title & unit price */}
+    <div>
+      <h3 className="font-semibold text-gray-900 line-clamp-1">
+        {item.title}
+      </h3>
+      <p className="text-sm text-gray-500">
+        Unit: ৳{item.price.toLocaleString()}
+      </p>
+    </div>
+
+    {/* Bottom row */}
+    <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
+      {/* Quantity */}
+      <div className="flex items-center gap-2">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleDecrease}
+          disabled={item.quantity <= 1}
+          className="h-8 w-8 p-0 rounded-full"
+        >
+          <Minus className="w-3 h-3" />
+        </Button>
+
+        <span className="min-w-6 text-center font-medium">
+          {item.quantity}
+        </span>
+
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleIncrease}
+          className="h-8 w-8 p-0 rounded-full"
+        >
+          <Plus className="w-3 h-3" />
+        </Button>
+      </div>
+
+      {/* Spacer */}
+      <div />
+
+      {/* Price & remove */}
+      <div className="flex items-center gap-4">
+        <div className="text-right">
+          <p className="font-semibold text-lg text-gray-900">
+            ৳{subtotal.toLocaleString()}
+          </p>
+          {item.quantity > 1 && (
+            <p className="text-xs text-gray-500">
+              ৳{item.price.toLocaleString()} × {item.quantity}
+            </p>
+          )}
+        </div>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={handleRemove}
+          className="text-gray-400 hover:text-red-600 hover:bg-red-50"
+        >
+          <Trash2 className="w-4 h-4" />
+        </Button>
+      </div>
+    </div>
+  </div>
+</Card>
+
     );
 }

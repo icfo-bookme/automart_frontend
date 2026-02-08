@@ -53,7 +53,7 @@ export function Tab({ item }: TabProps) {
                     </TabsContent>
                     <TabsContent value="review" className="p-2 text-gray-700">
                         {/* You can replace this with a Review component */}
-                        <Review />
+                        <Review itemId={item.id} />
                     </TabsContent>
                 </div>
             </Tabs>

@@ -58,12 +58,12 @@ const Card = ({ products , nam}: ProductCarouselProps) => {
 
                                         {/* Rating */}
                                         <div className="flex items-center gap-1 my-2">
-                                            {[...Array(5)].map((_, i) => (
+                                            {/* {[...Array(5)].map((_, i) => (
                                                 <Star
                                                     key={i}
                                                     className="w-3 h-3 fill-yellow-400 text-yellow-400"
                                                 />
-                                            ))}
+                                            ))} */}
                                             <span className="text-xs text-gray-500 ml-1">
                                                 Rate this product
                                             </span>
